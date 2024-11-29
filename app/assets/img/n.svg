@@ -1,0 +1,23 @@
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_1129_3600)">
+<path d="M8.14291 24C6.40713 24 5 22.5929 5 20.8571V5.972C5 2.68774 7.66242 0.0253957 10.9467 0.025316V0.025316C13.0514 0.025265 14.1489 0.025265 16.3041 0.025265C19.243 0.025265 22.3247 -0.209664 23.9574 0.753245C25.5902 1.68509 25.983 2.30248 26.6361 3.9798C26.9876 4.88248 27.135 5.95638 27.1962 7.10435C27.2169 7.49246 27.2272 7.68652 27.2183 8.06934C27.1929 9.15826 26.8931 10.5999 26.4822 11.6087C26.3377 11.9633 26.1821 12.2748 25.8708 12.8979V12.8979L24.7228 14.7179L23.3834 16.7199L21.6614 18.9039V18.9039C21.1846 19.7169 19.9394 19.3787 19.9394 18.4362V11.0007C19.9394 9.50978 19.8088 8.3139 19.5476 7.41312C19.2863 6.51233 18.8292 5.86004 18.1761 5.45624C17.5556 5.05244 16.674 4.85054 15.5311 4.85054C15.0086 4.85054 14.4045 4.87715 13.8167 4.93928C13.2289 5.0014 12.86 4.93928 12.86 5.45624V14.4034V18.5531C12.86 19.74 12.4665 20.8934 11.7411 21.8328V21.8328C11.4576 22.1999 11.1277 22.5288 10.7596 22.8111L10.0556 23.351C9.50681 23.7719 8.83452 24 8.14291 24V24Z" fill="url(#paint0_radial_1129_3600)"/>
+</g>
+<defs>
+<filter id="filter0_d_1129_3600" x="0.1" y="0" width="27.1214" height="27.9" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="-3" dy="2"/>
+<feGaussianBlur stdDeviation="0.95"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1129_3600"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1129_3600" result="shape"/>
+</filter>
+<radialGradient id="paint0_radial_1129_3600" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(6.33934 1.48125) rotate(30.6064) scale(29.3621 25.2889)">
+<stop stopColor="#1B4FF9"/>
+<stop offset="0.299737" stopColor="#1845D9"/>
+<stop offset="0.777945" stopColor="#0A1D5C"/>
+<stop offset="1" stopColor="#2393FA"/>
+</radialGradient>
+</defs>
+</svg>
