@@ -246,7 +246,7 @@ export default function Page() {
 
       let message = getLastJDMessage()
 
-      const response = await fetch("http://localhost:8000/sourcing-applicants/", {
+      const response = await fetch("http://172.207.42.36/sourcing-applicants/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

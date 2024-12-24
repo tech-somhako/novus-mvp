@@ -316,7 +316,7 @@ export default function ChatInput({ onSendMessage, isLoading, setIsLoading }) {
       // Add user's message to chat view
       onSendMessage({ text: message, isUser: true });
 
-      const response = await fetch("http://localhost:8000/chat/", {
+      const response = await fetch("http://172.207.42.36/chat/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

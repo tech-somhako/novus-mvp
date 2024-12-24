@@ -21,7 +21,7 @@ export default function SourcingApplicants() {
     setShowLoadMore(false); // Reset the button visibility
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/sourcing-applicants/", {
+      const response = await fetch("http://172.207.42.36/sourcing-applicants/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
