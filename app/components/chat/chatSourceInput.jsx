@@ -33,7 +33,7 @@ export default function ChatSourcingInput({ onSendMessage }) {
       // Add user's message to chat view
       onSendMessage({ text: message, isUser: true });
 
-      const response = await fetch("http://172.207.42.36/sourcing-applicants/", {
+      const response = await fetch("http://localhost:8000/sourcing-applicants/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,9 +50,16 @@ export default function ChatSourcingInput({ onSendMessage }) {
       const data = await response.json();
       // Extract response field from the API JSON
       const apiResponse = data.response || "No response received.";
+      console.log(apiResponse)
+      const parsedResponse = apiResponse
+      const candidatesArray = parsedResponse.split('-----------------------------')
+        .map(candidate => candidate.trim())
+        .filter(candidate => candidate.length > 0);
+
+      console.log(candidatesArray);
       
       // Add API's response to chat view
-      onSendMessage({ text: apiResponse, isUser: false });
+      onSendMessage({ text: candidatesArray, isUser: false });
 
     } catch (error) {
       console.error("Error sending message:", error.message);

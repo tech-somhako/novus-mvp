@@ -78,65 +78,65 @@ export default function ChatInput() {
   );
 } */
 
-  /* "use client";
+/* "use client";
 import React, { useState } from 'react';
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, PlusCircle } from "lucide-react";
 
 export default function ChatInput() {
-  const [message, setMessage] = useState('');
+const [message, setMessage] = useState('');
 
-  const handleSendMessage = async () => {
-    if (!message.trim()) {
-      console.error('Message is empty');
-      return; // Do not send empty messages
+const handleSendMessage = async () => {
+  if (!message.trim()) {
+    console.error('Message is empty');
+    return; // Do not send empty messages
+  }
+
+  try {
+    const response = await fetch('http://172.207.42.36/chat/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query: message }), 
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Error: ${response.status} ${response.statusText} - ${errorText}`);
+      throw new Error(`Server error: ${errorText}`);
     }
 
-    try {
-      const response = await fetch('http://172.207.42.36/chat/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query: message }), 
-      });
+    const data = await response.json();
+    console.log('Response:', data);
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error(`Error: ${response.status} ${response.statusText} - ${errorText}`);
-        throw new Error(`Server error: ${errorText}`);
-      }
+  } catch (error) {
+    console.error('Error sending message:', error.message);
+  }
+};
 
-      const data = await response.json();
-      console.log('Response:', data);
-
-    } catch (error) {
-      console.error('Error sending message:', error.message);
-    }
-  };
-
-  return (
-    <div className="py-4 relative">
-      <Textarea
-        className="bg-muted h-32"
-        placeholder="Type your message here."
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <div className="flex justify-between items-center absolute bottom-5 w-full px-3">
-        <Button variant="link" className="rounded-full">
-          <PlusCircle />
-        </Button>
-        <Button
-          className="rounded-full px-3"
-          onClick={handleSendMessage}
-        >
-          <ArrowRight />
-        </Button>
-      </div>
+return (
+  <div className="py-4 relative">
+    <Textarea
+      className="bg-muted h-32"
+      placeholder="Type your message here."
+      value={message}
+      onChange={(e) => setMessage(e.target.value)}
+    />
+    <div className="flex justify-between items-center absolute bottom-5 w-full px-3">
+      <Button variant="link" className="rounded-full">
+        <PlusCircle />
+      </Button>
+      <Button
+        className="rounded-full px-3"
+        onClick={handleSendMessage}
+      >
+        <ArrowRight />
+      </Button>
     </div>
-  );
+  </div>
+);
 } */
 
 /*   "use client";
@@ -209,78 +209,78 @@ export default function ChatInput({ onSendMessage }) {
   );
 } */
 
-  /* "use client";
+/* "use client";
 import React, { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, PlusCircle } from "lucide-react";
 
 export default function ChatInput({ onSendMessage }) {
-  const [message, setMessage] = useState("");
+const [message, setMessage] = useState("");
 
-  const handleSendMessage = async () => {
-    if (!message.trim()) {
-      console.error("Message is empty");
-      return;  // Do not send empty messages
+const handleSendMessage = async () => {
+  if (!message.trim()) {
+    console.error("Message is empty");
+    return;  // Do not send empty messages
+  }
+
+  try {
+    // Add user's message to chat
+    onSendMessage({ text: message, isUser: true });
+
+    const response = await fetch("http://172.207.42.36/chat/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ query: message }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Error: ${response.status} ${response.statusText} - ${errorText}`);
+      throw new Error(`Server error: ${errorText}`);
     }
+    console.log(response,"Response Data");
+    const data = await response.json();
+    // const apiResponse = "**Job Title: C++ Developer**\n\n**Job Brief:**\nWe are seeking a highly skilled C++ Developer to join our dynamic team. The ideal candidate will have a strong background in C++ programming and a passion for developing innovative software solutions. You will be responsible for designing, implementing, and optimizing software applications that meet our business needs. \n\n**Key Responsibilities:**\n- Develop high-quality, efficient, and maintainable C++ code based on project specifications.\n- Collaborate with cross-functional teams to define, design, and ship new features.\n- Conduct code reviews to ensure code quality and adherence to best practices.\n- Troubleshoot, debug, and optimize existing code to improve performance and reliability.\n- Stay updated on the latest industry trends and technologies related to C++ development.\n\n**Responsibilities:**\n- Analyze user requirements and translate them into technical specifications.\n- Write clean, scalable, and well-documented code.\n- Participate in the full software development lifecycle, from planning to deployment.\n- Continuously evaluate and improve software development processes and practices.\n- Provide technical support and guidance to junior developers as needed."
+    // || "No response received.";
+    const apiResponse = (data[0]?.response || "No response received.");
+    console.log(data,"Raw Data");
+    console.log(data[0]?.response,"API Response");
 
-    try {
-      // Add user's message to chat
-      onSendMessage({ text: message, isUser: true });
+    
+    // Add API's response to chat
+    onSendMessage({ text: apiResponse, isUser: false });
 
-      const response = await fetch("http://172.207.42.36/chat/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query: message }),
-      });
+  } catch (error) {
+    console.error("Error sending message:", error.message);
+  }
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error(`Error: ${response.status} ${response.statusText} - ${errorText}`);
-        throw new Error(`Server error: ${errorText}`);
-      }
-      console.log(response,"Response Data");
-      const data = await response.json();
-      // const apiResponse = "**Job Title: C++ Developer**\n\n**Job Brief:**\nWe are seeking a highly skilled C++ Developer to join our dynamic team. The ideal candidate will have a strong background in C++ programming and a passion for developing innovative software solutions. You will be responsible for designing, implementing, and optimizing software applications that meet our business needs. \n\n**Key Responsibilities:**\n- Develop high-quality, efficient, and maintainable C++ code based on project specifications.\n- Collaborate with cross-functional teams to define, design, and ship new features.\n- Conduct code reviews to ensure code quality and adherence to best practices.\n- Troubleshoot, debug, and optimize existing code to improve performance and reliability.\n- Stay updated on the latest industry trends and technologies related to C++ development.\n\n**Responsibilities:**\n- Analyze user requirements and translate them into technical specifications.\n- Write clean, scalable, and well-documented code.\n- Participate in the full software development lifecycle, from planning to deployment.\n- Continuously evaluate and improve software development processes and practices.\n- Provide technical support and guidance to junior developers as needed."
-      // || "No response received.";
-      const apiResponse = (data[0]?.response || "No response received.");
-      console.log(data,"Raw Data");
-      console.log(data[0]?.response,"API Response");
+  // Clear input field after sending
+  setMessage("");
+};
 
-      
-      // Add API's response to chat
-      onSendMessage({ text: apiResponse, isUser: false });
-
-    } catch (error) {
-      console.error("Error sending message:", error.message);
-    }
-
-    // Clear input field after sending
-    setMessage("");
-  };
-
-  return (
-    <div className="py-4 relative">
-      <Textarea
-        className="bg-muted h-32"
-        placeholder="Type your message here."
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <div className="flex justify-between items-center absolute bottom-5 w-full px-3">
-        <Button variant="link" className="rounded-full">
-          <PlusCircle />
-        </Button>
-        <Button className="rounded-full px-3" onClick={handleSendMessage}>
-          <ArrowRight />
-        </Button>
-      </div>
+return (
+  <div className="py-4 relative">
+    <Textarea
+      className="bg-muted h-32"
+      placeholder="Type your message here."
+      value={message}
+      onChange={(e) => setMessage(e.target.value)}
+    />
+    <div className="flex justify-between items-center absolute bottom-5 w-full px-3">
+      <Button variant="link" className="rounded-full">
+        <PlusCircle />
+      </Button>
+      <Button className="rounded-full px-3" onClick={handleSendMessage}>
+        <ArrowRight />
+      </Button>
     </div>
-  );
+  </div>
+);
 }
- */
+*/
 
 "use client";
 import React, { useState, useEffect } from "react";
@@ -289,10 +289,9 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, PlusCircle, Loader } from "lucide-react"; // Add Loader icon
 import { v4 as uuid4 } from "uuid"; // Import uuid4
 
-export default function ChatInput({ onSendMessage }) {
+export default function ChatInput({ onSendMessage, isLoading, setIsLoading }) {
   const [message, setMessage] = useState("");
   const [sessionId, setSessionId] = useState(null); // State for session_id
-  const [isLoading, setIsLoading] = useState(false); // State for loading
 
   useEffect(() => {
     // Check for session_id in localStorage
@@ -315,9 +314,9 @@ export default function ChatInput({ onSendMessage }) {
 
     try {
       // Add user's message to chat view
-      onSendMessage({ text: message,  isUser: true });
+      onSendMessage({ text: message, isUser: true });
 
-      const response = await fetch("http://172.207.42.36/chat/", {
+      const response = await fetch("http://localhost:8000/chat/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -336,9 +335,9 @@ export default function ChatInput({ onSendMessage }) {
       const apiResponse = data.response || "No response received.";
 
       console.log("Data", apiResponse)
-      
+
       // Add API's response to chat view
-      onSendMessage({ text: apiResponse,  isUser: false });
+      onSendMessage({ text: apiResponse, isUser: false });
 
     } catch (error) {
       console.error("Error sending message:", error.message);
@@ -349,6 +348,11 @@ export default function ChatInput({ onSendMessage }) {
     // Clear input field after sending
     setMessage("");
   };
+
+
+
+
+
 
   return (
     <div className="py-4 relative">

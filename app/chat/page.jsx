@@ -4,8 +4,7 @@ import { useState, useEffect } from 'react';
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import ChatView from "../components/chat/chat";
+import { Button } from "@/components/ui/button"
 import Link from "next/link";
 import ChatSourcingInput from '../components/chat/chatSourceInput';
 import SourcingChatView from '../components/chat/sourcingChat';
@@ -18,18 +17,6 @@ export default function Page() {
   const handleSendMessage = (newMessage) => {
     setMessages((prevMessages) => [...prevMessages, newMessage]);
   };
-
-  const handleNewChat = () => {
-    // Clear messages state
-    setMessages([]);
-
-    // Remove session ID from local storage
-    localStorage.removeItem('session_id');
-  };
-
-  useEffect(() => {
-    localStorage.removeItem('session_id');
-  }, []);
 
   return (
     <SidebarProvider

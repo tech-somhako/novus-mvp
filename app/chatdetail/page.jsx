@@ -149,6 +149,7 @@ import Link from "next/link";
 export default function Page() {
   // State to manage chat messages
   const [messages, setMessages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false); // State for loading
 
   // Function to add new messages to the chat
   const handleSendMessage = (newMessage) => {
@@ -173,8 +174,10 @@ export default function Page() {
 
   const handlePublish = async (lastMessage) => {
     console.log("Button clicked");
+    setIsLoading(true);
 
     try {
+      handleSendMessage({ text: "Publish the Job", isUser: true });
       const response = await fetch('http://172.207.42.36/api/jobs/', {
         method: 'POST',
         headers: {
@@ -207,6 +210,8 @@ export default function Page() {
       }
     } catch (error) {
       console.error('Error:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -221,6 +226,55 @@ export default function Page() {
     };
     // setMessages((prevMessages) => [...prevMessages, newMessage]);
     addMessage(generatedMessage);
+  };
+
+  const getLastJDMessage = () => {
+    let lastmessage = messages[messages.length - 1].text
+    if (lastmessage.includes("Job published successfully!")){
+      return messages[messages.length - 3].text
+    }else{
+      return lastmessage
+    }
+  };
+
+  
+  const handleSource = async () => {
+    setIsLoading(true);
+    try {
+      // Add user's message to chat view
+      handleSendMessage({ text: "Start to Source Profile", isUser: true });
+
+      let message = getLastJDMessage()
+
+      const response = await fetch("http://localhost:8000/sourcing-applicants/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: message }), // Use session_id from state
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`Error: ${response.status} ${response.statusText} - ${errorText}`);
+        throw new Error(`Server error: ${errorText}`);
+      }
+
+      const data = await response.json();
+      // Extract response field from the API JSON
+      const apiResponse = data.response || "No response received.";
+
+      console.log("Data", apiResponse)
+
+      // Add API's response to chat view
+      handleSendMessage({ text: apiResponse, isUser: false });
+
+    } catch (error) {
+      console.error("Error sending message:", error.message);
+    } finally {
+      setIsLoading(false);
+    }
+
   };
 
   return (
@@ -342,11 +396,11 @@ export default function Page() {
         </header>
         <div className="mx-auto w-full flex flex-1 flex-col justify-between h-full md:pb-4 gap-4 text-base md:gap-3 lg:gap-3 md:max-w-3xl">
         <div className="relative max-w-screen-md p-4 md:p-6 w-full mx-auto flex flex-col min-h-svh !pb-32 md:!pb-40 overflow-y-auto">
-          <ChatView messages={messages}  onPublish={handlePublish} onGenerateJobDescription={handleGenerateJobDescription}/>
+          <ChatView messages={messages}  onPublish={handlePublish} onHandleSource={handleSource} isLoading={isLoading} setIsLoading={setIsLoading}/>
         </div>
           <div className="fixed z-10 mx-auto bottom-0 inset-x-0 flex shrink-0 items-center justify-center ps-4-5 gap-2 bg-background py-2 px-4">
             <div className="mx-auto flex flex-1 flex-col gap-4 text-base md:gap-3 lg:gap-3 md:max-w-3xl">
-              <ChatInput onSendMessage={handleSendMessage} />
+              <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} setIsLoading={setIsLoading} />
             </div>
           </div>
         </div>
