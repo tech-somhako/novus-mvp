@@ -4,6 +4,7 @@ import CommonHeader from "@/components/common/header";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import IndividualProfileTab from "@/components/common/profile/IndividualProfileTab";
 import IntegrationsProfileTab from "@/components/common/profile/IntegrationsProfileTab";
+import UploadProfileTab from "@/components/common/profile/uploadProfileTab";
 export default function Page() {
   return (
     <SidebarProvider
@@ -31,6 +32,12 @@ export default function Page() {
                     >
                       Integrations
                     </TabsTrigger>
+                    <TabsTrigger
+                      value="upload"
+                      className="data-[state=active]:bg-gray-900 w-full data-[state=active]:text-white  data-[state=active]:border-gray-900 "
+                    >
+                      Upload Resumes
+                    </TabsTrigger>
                   </TabsList>
                 </div>
 
@@ -41,6 +48,9 @@ export default function Page() {
                   </TabsContent>
                   <TabsContent value="integrations" className="px-6">
                     <IntegrationsProfileTab />
+                  </TabsContent>
+                  <TabsContent value="upload" className="px-6">
+                    <UploadProfileTab />
                   </TabsContent>
                 </div>
               </div>

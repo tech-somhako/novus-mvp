@@ -20,7 +20,7 @@ export default function ChatInit() {
 </svg>
           </div>
           <div>
-            <h5>Novus, AI Recruiter</h5>
+            <h5>Brytt</h5>
             <p className="text-gray-500">
               Hey Som, Welcome Back!!! How’s your Day?
             </p>

@@ -315,7 +315,7 @@ export default function ChatInput({ onSendMessage }) {
 
     try {
       // Add user's message to chat view
-      onSendMessage({ text: message, isUser: true });
+      onSendMessage({ text: message,  isUser: true });
 
       const response = await fetch("http://172.207.42.36/chat/", {
         method: "POST",
@@ -334,9 +334,11 @@ export default function ChatInput({ onSendMessage }) {
       const data = await response.json();
       // Extract response field from the API JSON
       const apiResponse = data.response || "No response received.";
+
+      console.log("Data", apiResponse)
       
       // Add API's response to chat view
-      onSendMessage({ text: apiResponse, isUser: false });
+      onSendMessage({ text: apiResponse,  isUser: false });
 
     } catch (error) {
       console.error("Error sending message:", error.message);

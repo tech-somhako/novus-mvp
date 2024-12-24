@@ -24,7 +24,7 @@ export default function ChatSide() {
 
           </div>
           <div>
-            <h5>Novus, AI Recruiter</h5>
+            <h5>Brytt</h5>
             <p className="text-gray-500">
               Located in the Bay Area, with experience in both startups and
               public companies, and have at least 3 years of experience working
@@ -37,7 +37,7 @@ export default function ChatSide() {
             <Image src={UserImg} alt="" />
           </div>
           <div>
-            <h5>Novus, AI Recruiter</h5>
+            <h5>Brytt</h5>
             <p className="text-gray-500">
               I&apos;ll take all that into account. Let&apos;s start with a few
               candidates, and you can tell me what you like or don&apos;t like.

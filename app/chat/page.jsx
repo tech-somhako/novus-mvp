@@ -1,11 +1,36 @@
+
+"use client"
+import { useState, useEffect } from 'react';
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import ChatInput from "../components/chat/ChatInput";
-import ChatSide from "../components/chat/chatside";
+import ChatView from "../components/chat/chat";
 import Link from "next/link";
+import ChatSourcingInput from '../components/chat/chatSourceInput';
+import SourcingChatView from '../components/chat/sourcingChat';
+
 export default function Page() {
+  // State to manage chat messages
+  const [messages, setMessages] = useState([]);
+
+  // Function to add new messages to the chat
+  const handleSendMessage = (newMessage) => {
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
+  };
+
+  const handleNewChat = () => {
+    // Clear messages state
+    setMessages([]);
+
+    // Remove session ID from local storage
+    localStorage.removeItem('session_id');
+  };
+
+  useEffect(() => {
+    localStorage.removeItem('session_id');
+  }, []);
+
   return (
     <SidebarProvider
       style={{
@@ -123,16 +148,17 @@ export default function Page() {
             </div>
           </div>
         </header>
-        <div className="mx-auto flex flex-1 flex-col justify-between h-screen gap-4 text-base md:gap-3 lg:gap-3 md:max-w-3xl">
-          <ChatSide />
-
-          <div className="sticky bottom-0 flex shrink-0 items-center z-10 justify-end gap-2 bg-background py-2 px-4">
+        <div className="mx-auto w-full flex flex-1 flex-col justify-between h-full md:pb-4 gap-4 text-base md:gap-3 lg:gap-3 md:max-w-3xl">
+        <div className="relative max-w-screen-md p-4 md:p-6 w-full mx-auto flex flex-col min-h-svh !pb-32 md:!pb-40 overflow-y-auto">
+          <SourcingChatView messages={messages} />
+        </div>
+          <div className="fixed z-10 mx-auto bottom-0 inset-x-0 flex shrink-0 items-center justify-center ps-4-5 gap-2 bg-background py-2 px-4">
             <div className="mx-auto flex flex-1 flex-col gap-4 text-base md:gap-3 lg:gap-3 md:max-w-3xl">
-              <ChatInput />
+              <ChatSourcingInput onSendMessage={handleSendMessage} />
             </div>
           </div>
         </div>
       </SidebarInset>
-    </SidebarProvider>
+    </SidebarProvider >
   );
 }

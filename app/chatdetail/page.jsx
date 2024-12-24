@@ -167,6 +167,62 @@ export default function Page() {
     localStorage.removeItem('session_id');
   }, []);
 
+  useEffect(() => {
+    console.log(messages);
+  }, [messages]);
+
+  const handlePublish = async (lastMessage) => {
+    console.log("Button clicked");
+
+    try {
+      const response = await fetch('http://172.207.42.36/api/jobs/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          description: lastMessage.text, // Sending the last message's text to the API
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Job description published successfully!', data);
+
+        // Get refid from the API response and create the link
+        const refid = data.refid;
+        const link = `http://172.207.42.36:3000/advantf/${refid}`;
+
+        // Create a new message with the link
+        const newMessage = {
+          isUser: false, // This will be a message from the bot (you can change this if needed)
+          text: `Job published successfully!\n[${link}](${link})`,
+        };
+
+        // Append the new message to the existing messages
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
+
+      } else {
+        console.error('Failed to publish job description');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const addMessage = (newMessage) => {
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
+  };
+
+  const handleGenerateJobDescription = () => {
+    const generatedMessage = {
+      isUser: true,
+      text: "Generate a new job description",
+    };
+    // setMessages((prevMessages) => [...prevMessages, newMessage]);
+    addMessage(generatedMessage);
+  };
+
   return (
     <SidebarProvider
       style={{
@@ -188,18 +244,18 @@ export default function Page() {
               <path
                 d="M9.57 5.92999L3.5 12L9.57 18.07"
                 stroke="#292D32"
-                stroke-width="1.5"
-                stroke-miterlimit="10"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="1.5"
+                strokeMiterlimit="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M20.4999 12H3.66992"
                 stroke="#292D32"
-                stroke-width="1.5"
-                stroke-miterlimit="10"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="1.5"
+                strokeMiterlimit="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg></Link>
            
@@ -286,7 +342,7 @@ export default function Page() {
         </header>
         <div className="mx-auto w-full flex flex-1 flex-col justify-between h-full md:pb-4 gap-4 text-base md:gap-3 lg:gap-3 md:max-w-3xl">
         <div className="relative max-w-screen-md p-4 md:p-6 w-full mx-auto flex flex-col min-h-svh !pb-32 md:!pb-40 overflow-y-auto">
-          <ChatView messages={messages} />
+          <ChatView messages={messages}  onPublish={handlePublish} onGenerateJobDescription={handleGenerateJobDescription}/>
         </div>
           <div className="fixed z-10 mx-auto bottom-0 inset-x-0 flex shrink-0 items-center justify-center ps-4-5 gap-2 bg-background py-2 px-4">
             <div className="mx-auto flex flex-1 flex-col gap-4 text-base md:gap-3 lg:gap-3 md:max-w-3xl">
