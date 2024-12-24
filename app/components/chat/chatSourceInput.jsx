@@ -59,7 +59,7 @@ export default function ChatSourcingInput({ onSendMessage }) {
       console.log(candidatesArray);
       
       // Add API's response to chat view
-      onSendMessage({ text: candidatesArray, isUser: false });
+      onSendMessage({ text: apiResponse, isUser: false });
 
     } catch (error) {
       console.error("Error sending message:", error.message);
