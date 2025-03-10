@@ -177,7 +177,7 @@ export default function Page() {
     setIsLoading(true);
 
     try {
-      handleSendMessage({ text: "Publish the Job", isUser: true });
+      handleSendMessage({ text: "仕事の公開", isUser: true });
       const response = await fetch('http://172.207.42.36/api/jobs/', {
         method: 'POST',
         headers: {
@@ -199,7 +199,7 @@ export default function Page() {
         // Create a new message with the link
         const newMessage = {
           isUser: false, // This will be a message from the bot (you can change this if needed)
-          text: `Job published successfully!\n[${link}](${link})`,
+          text: `仕事は無事に公開された！\n[${link}](${link})`,
         };
 
         // Append the new message to the existing messages
@@ -230,7 +230,7 @@ export default function Page() {
 
   const getLastJDMessage = () => {
     let lastmessage = messages[messages.length - 1].text
-    if (lastmessage.includes("Job published successfully!")){
+    if (lastmessage.includes("仕事は無事に公開された！")){
       return messages[messages.length - 3].text
     }else{
       return lastmessage
@@ -242,7 +242,7 @@ export default function Page() {
     setIsLoading(true);
     try {
       // Add user's message to chat view
-      handleSendMessage({ text: "Start to Source Profile", isUser: true });
+      handleSendMessage({ text: "ソース・プロフィールへ", isUser: true });
 
       let message = getLastJDMessage()
 

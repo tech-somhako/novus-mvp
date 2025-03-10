@@ -333,7 +333,7 @@ import { useState } from "react";
 
 export default function ChatView({ messages, onPublish, onHandleSource, isLoading, setIsLoading }) {
   const lastMessage = messages[messages.length - 1];
-  const showButtons = lastMessage && lastMessage.text.includes('職務記述書:');
+  const showButtons = lastMessage && /職務記述書|職務内容|Job Description/i.test(lastMessage.text);
   const showButtons2 = lastMessage && lastMessage.text.includes('仕事は無事に公開された！');
   const handlePublishClick = () => {
     // Ensure that onPublish is a function before calling it
